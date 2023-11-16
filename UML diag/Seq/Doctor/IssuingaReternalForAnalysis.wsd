@@ -1,0 +1,53 @@
+@startuml
+actor Patient
+participant AuthController
+participant PatientController
+participant DoctorController
+participant MedicalExamination
+participant MedicalRecord
+participant LaboratoryTechnicianController
+participant AnalysController
+
+== Request Medical Examination ==
+
+Patient -> AuthController: Login
+activate AuthController
+AuthController -> PatientController: Request Medical Examination
+activate PatientController
+PatientController -> DoctorController: Request Medical Examination
+activate DoctorController
+DoctorController -> MedicalExamination: Conduct Medical Examination
+activate MedicalExamination
+MedicalExamination -> MedicalRecord: Create Medical Record
+activate MedicalRecord
+MedicalExamination --> DoctorController: Medical Examination Completed
+deactivate MedicalRecord
+DoctorController --> PatientController: Medical Examination Completed
+deactivate DoctorController
+PatientController --> AuthController: Medical Examination Completed
+deactivate PatientController
+deactivate AuthController
+
+== Issue Referral for Analysis ==
+
+Patient -> AuthController: Login
+activate AuthController
+AuthController -> PatientController: Request Analysis Referral
+activate PatientController
+PatientController -> DoctorController: Request Analysis Referral
+activate DoctorController
+DoctorController -> LaboratoryTechnicianController: Issue Referral For Analysis
+activate LaboratoryTechnicianController
+LaboratoryTechnicianController -> AnalysController: Perform Analysis
+activate AnalysController
+AnalysController --> LaboratoryTechnicianController: Analysis Results
+deactivate AnalysController
+LaboratoryTechnicianController --> DoctorController: Analysis Completed
+deactivate LaboratoryTechnicianController
+DoctorController --> PatientController: Analysis Completed
+deactivate DoctorController
+PatientController --> AuthController: Analysis Completed
+deactivate PatientController
+deactivate AuthController
+
+@enduml
