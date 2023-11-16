@@ -1,0 +1,21 @@
+@startuml Cancellation Of Patient Appointment
+:Start;
+:Patient Requests Appointment Cancellation;
+:Verify Patient Identity;
+if (Identity Verified?) then (yes)
+  :Retrieve Patient's Appointments;
+  :Select Appointment for Cancellation;
+  :Check Cancellation Conditions;
+  if (Conditions Met?) then (yes)
+    :Cancel Appointment;
+    :Update Appointment Schedule;
+    :Generate Cancellation Confirmation;
+    :Display Confirmation;
+  else (no)
+    :Display Cancellation Restrictions Message;
+  endif
+else (no)
+  :Display Identity Verification Failure Message;
+endif
+:End;
+@enduml

@@ -1,0 +1,14 @@
+@startuml ChangePersonalInfo
+:Start;
+:Login to Patient Account;
+  :Navigate to Personal Information Section;
+  :Edit Personal Information (Only PASSWORD, other info: ID CART);
+  if (The password is more than 8 digits and contains special characters?) then (yes)
+  :Submit Changes;
+  :Update Patient Record;
+  :Display Confirmation Message;
+else (no)
+  :Display Failure Message;
+endif
+:End;
+@enduml

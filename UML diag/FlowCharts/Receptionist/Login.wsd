@@ -1,0 +1,16 @@
+@startuml Login
+:Start;
+:Enter Username and Password;
+if (Credentials Valid?) then (yes)
+  :Authenticate User;
+  if (User Authenticated?) then (yes)
+    :Grant Access;
+    :Display Home Screen;
+  else (no)
+    :Show Error Message;
+  endif
+else (no)
+  :Show Error Message;
+endif
+:End;
+@enduml

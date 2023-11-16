@@ -1,0 +1,16 @@
+@startuml Patient Appointment
+:Start;
+:Retrieve Patient's Appointment;
+if (Appointment Found?) then (yes)
+  :Review Patient's Medical History;
+  :Display: "Conduct Medical Examination";
+  :Provide Diagnosis and Treatment Plan;
+  :Prescribe Medications if Necessary;
+  :Schedule Follow-up Appointments if Needed;
+  :Generate Medical Report;
+  :End Appointment;
+else (no)
+  :Display No Appointment Found Message;
+endif
+:End;
+@enduml

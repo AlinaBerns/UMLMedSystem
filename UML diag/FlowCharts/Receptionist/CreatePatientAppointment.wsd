@@ -1,0 +1,16 @@
+@startuml Create Patient Appointment
+:Start;
+:Patient Requests Appointment;
+:Check Appointment Availability;
+if (Slot Available?) then (yes)
+  :Enter Patient Details;
+  :Select Appointment Date and Time;
+  :Confirm Appointment;
+  :Update Appointment Schedule;
+  :Generate Appointment Confirmation;
+  :Display Confirmation;
+else (no)
+  :Display No Availability Message;
+endif
+:End;
+@enduml

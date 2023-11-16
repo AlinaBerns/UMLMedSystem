@@ -1,0 +1,16 @@
+@startuml Diagnosi
+:Start;
+:Conduct Medical Examination;
+:Review Patient's Symptoms;
+:Examine Test Results;
+if (Clear Diagnosis?) then (yes)
+  :Provide Diagnosis;
+  :Prescribe Treatment Plan;
+else (no)
+  :Request Additional Tests;
+  :Review Further Medical Information;
+  :Display: "Consult with Specialists if Needed";
+  :Refine Diagnosis;
+endif
+:End;
+@enduml

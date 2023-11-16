@@ -1,0 +1,15 @@
+@startuml Registration
+:Start;
+:Visit Registration Counter;
+:Provide Personal Information;
+:Verify Identification;
+if (Identification Verified?) then (yes)
+  :Enter Health Information;
+  :Generate Patient ID;
+  :Complete Registration Form;
+  :Provide Registration Confirmation;
+else (no)
+  :Display Identification Verification Failure Message;
+endif
+:End;
+@enduml

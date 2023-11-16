@@ -1,0 +1,21 @@
+@startuml Dispense Medication
+:Start;
+:Patient Presents Prescription;
+:Verify Prescription;
+if (Prescription Verified?) then (yes)
+  :Retrieve Medication Details;
+  :Check Medication Availability;
+  if (Medication Available?) then (yes)
+    :Prepare Medication;
+    :Dispense Medication;
+    :Update Medication Inventory;
+    :Generate Dispensing Record;
+    :Provide Medication and Instructions to Patient;
+  else (no)
+    :Display Medication Unavailable Message;
+  endif
+else (no)
+  :Display Prescription Verification Failure Message;
+endif
+:End;
+@enduml

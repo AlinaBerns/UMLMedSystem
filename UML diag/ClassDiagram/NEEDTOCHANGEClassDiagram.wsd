@@ -3,292 +3,24 @@
 left to right direction
 skinparam packageRotation 90
 
-
-class LoginAspect {
+package aspect {
+  class LoginAspect {
   + writeToFile(String content, String filePath):void
   + beforeLoginAttempt(JoinPoint joinPoint): void
   + afterLoginAttempt(ResponseEntity<?> response):void
   + afterLoginAttempt(JoinPoint joinPoint, Exception e): void
 }
+} 
 
-class AspectConfig{
-
-}
-
-class AuthController{
-  - authenticationManager:AuthenticationManager 
-  - userRepository: UserRepository
-  - roleRepository: RoleRepository 
-  - encoder: PasswordEncoder 
-  + authenticateUser(LoginRequest loginRequest): ResponseEntity<?>
-  + registerUser(SignupRequest signUpRequest): ResponseEntity<?> 
-}
-
-class PatientController {
-  - patientService: PatienService
-  + constructor PatientController(PatientService PatientService)
-  + addPatient(Patient patient): Optional<Patient>
-  + getPatientById(String id): Optional<Patient>
-  + getAllPatients(): List<Patient>
-  + searchPatient(String query): List<Patient>
-  + updatePatient(Patient patient): ResponseEntity<?>
-  + deletePatient(Long patientId): ResponseEntity<?>
-  + getPatientByName(String name): Optional<Patient>
-}
-
-class DoctorController {
-  - doctorService: DoctorService
-  + constructor DoctorController(DoctorService DoctorService)
-  + addDoctor(Doctor doctor): Optional<Doctor>
-  + getDoctorById(String id): Optional<Doctor>
-  + getAllDoctors(): List<Doctor>
-  + searchDoctor(String query): List<Doctor>
-  + updateDoctor(Doctor doctor): ResponseEntity<?>
-  + deleteDoctor(Long doctorId): ResponseEntity<?>
-  + getDoctorByName(String name): Optional<Doctor>
-}
-
-class AppointmentController {
-  - appointmentService: AppointmentService
-  - doctorService: DoctorService
-  - patientService: PatientService
-  + AppointmentController(appointmentService: AppointmentService, 
-  doctorService: DoctorService, 
-  patientService: PatientService) - constructor
-  + getAllFreeAppointments(appointmentDate: String): List<Appointment>
-  + cancelAllAppointments(appointmentDate: String): List<Appointment>
-  + cancelAppointment(appointmentDate: String)
-  + getAppointment(appointmentDate: String)
-}
-
-class PharmacistController{
-  - pharmacistService: PharmacistService
-  + <constructor>(pharmacistService: PharmacistService)
-  + getPharmacistById(Long id): Optional<Pharmacist>
-  + getAllPharmacists(): List<Pharmacist>
-  + searchPharmacist(String query): List<Pharmacist>
-  + updatePharmacist(Doctor doctor): ResponseEntity<?>
-  + deletePharmacist(Long doctorId): ResponseEntity<?>
-  + getPharmacistByName(String name): Optional<Pharmacist>
-}
-
-class LaboratoryTechnicianController{
-  - laboratoryTechnicianService:LaboratoryTechnician
-  + <constructor>(laboratoryTechnicianService: LaboratoryTechnicianService)
-  + getLaboratoryTechnicianById(Long id): Optional<LaboratoryTechnician>
-  + getAllLaboratoryTechnicians(): List<LaboratoryTechnician>
-  + searchLaboratoryTechnician(String query): List<LaboratoryTechnician>
-  + updateLaboratoryTechnician(Doctor doctor): ResponseEntity<?>
-  + deleteLaboratoryTechnician(Long doctorId): ResponseEntity<?>
-  + getLaboratoryTechnicianByName(String name): Optional<LaboratoryTechnician>
+package config {
+  class AspectConfig{
 
 }
-
-class DiagnosController{
-  - diagnosService: DiagnosService
-  + <constructor>(diagnosService: DiagnosService)
-  + getDiagnos(diagnosisCode:String): Optional<Diagnos>
-  + getAllDiagnoses(): List<Diagnos>
 }
 
-class AnalysController{
-  - analysService: AnalysService
-  + <constructor>(analysService: AnalysService)
-  + getAnalysByCode(code:String): Optional<Analys>
-  + getAnalysByType(type:String): Optional<Analys>
-  + getAllAnalyses(): List<Analys>
-
-}
-
-class MedicationController{
-  - medicationService: MedicationService
-  + <constructor>(medicationService: MedicationService)
-  + getMedicationByName(name:String): Optional<Medication>
-  + getAllMedications(): List<Medication>
-}
-
-interface LaboratoryTechnicianRepository extends JpaRepository {
-  getLaboratoryTechnicianById(Long id): Optional<LaboratoryTechnician>
-  getAllLaboratoryTechnicians(): List<LaboratoryTechnician>
-  searchLaboratoryTechnician(String query): List<LaboratoryTechnician>
-  updateLaboratoryTechnician(Doctor doctor): ResponseEntity<?>
-  deleteLaboratoryTechnician(Long doctorId): ResponseEntity<?>
-  getLaboratoryTechnicianByName(String name): Optional<LaboratoryTechnician>
-}
-
-interface DiagnosRepository extends JpaRepository {
-  getDiagnos(diagnosisCode:String): Optional<Diagnos>
-  getAllDiagnoses(): List<Diagnos>
-}
-
-interface AnalysRepository extends JpaRepository {
-  getAnalysByCode(code:String): Optional<Analys>
-  getAnalysByType(type:String): Optional<Analys>
-  getAllAnalyses(): List<Analys>
-}
-
-interface AnalysResultRepository extends JpaRepository {
-  getAnalysResultByCode(code:String): Optional<AnalysResult>
-  getAnalysResultByType(type:String): Optional<AnalysResult>
-  getAllAnalysResults(): List<AnalysResult>
-  getAnalysResultsByStatus(status:AnalysStatus): List<AnalysStatus>
-}
-
-interface MedicationRepository extends JpaRepository {
-  getMedicationByName(name:String): Optional<Medication>
-  getAllMedications(): List<Medication>
-}
-
-enum AppointmentStatus {
-  BUSY 
-  FREE
-  ABSENT
-}
-
-enum EnumRole {
-  ROLE_DOCTOR
-  ROLE_PATIENT
-  ROLE_RECEPTIONIST
-  ROLE_PHARMACIST
-  ROLE_LABORATORYTECHNICIAN
-}
-
-enum AnalysStatus {
-  POSITIV
-  NEGATIV
-}
-
-class Role {
-  - id: Integer 
-  - name: EnumRole
-  + Role(ERole name) - constructor
-  + getId():Integer
-  + setId(Integer id):void
-  + getName(): String
-  + setName(EnumRole name): void
-}
-
-
-class Receptionist{
-  - name:String
-  - familyName:String
-  - id:String
-  - username: String
-  - password:String
-  + <constructor>(
-    id: String,
-    name: String,
-    familyName: String,
-    username: String,
-    password: String
-  )
-  + getName(): String
-  + getFamilyName(): String
-  + getId(): String
-  + getPassword(): String
-}
-
-class Doctor{
-  - name:String
-  - familyName:String
-  - id:long
-  - username: String
-  - password:String
-  - specialization: String
-  - contactNumber: String
-  + <constructor>(
-    id: long,
-    name: String,
-    familyName: String,
-    username: String,
-    password: String,
-    specialization: String,
-    contactNumber: String
-  )
-  + getName(): String
-  + getFamilyName(): String
-  + getId(): long
-  + getPassword(): String
-  + getSpecialization(): String
-  + getContactNumber(): String
-  + setContactNumber(): void
-  + conductMedicalExamination()
-}
-
-class MedicalExamination {
-  NOTE:"this class shoud be change"
-  + reviewPatientsSymptoms()
-  + examineTestResults()
-  + provideDiagnoses()
-  + prescribeTreatmentPlan()
-  + requestAdditionalTests()
-  + reviewFurtherMedicalInformation()
-  + refineDiagnoses()
-}
-
-class MedicalHistoryService{
-  NOTE:"this class is not exist yet"
-}
-
-class Patient {
-  - name: String
-  - familyName: String
-  - id: long
-  - insurance: String
-  - addres: String
-  - username: String
-  - password: String
-  - gender: String
-  - age: String
-  - contraindications: String
-  - allergies: String
-  - contactNumber: String
-  - email: String
-
-  + <constructor>(
-    id: long,
-    name: String,
-    familyName: String,
-    insurance: String,
-    addres: String,
-    username: String,
-    password: String,
-    gender: String,
-    age: String,
-    contraindications: String,
-    allergies: String,
-    contactNumber: String,
-    email: String
-  )
-
-  +getName(): String
-  +getFamilyName(): String
-  +getId(): String
-  +getPassword(): String
-  +getSpecialization(): String
-  +getContactNumber(): String
-  +setContactNumber(contactNumber: String): void
-  +getInsurance(): String
-  +setInsurance(insurance: String): void
-  +getAddres(): String
-  +setAddres(addres: String): void
-  +getGender(): String
-  +setGender(gender: String): void
-  +getAge(): String
-  +setAge(age: String): void
-  +getContraindications(): String
-  +setContraindications(contraindications: String): void
-  +getAllergies(): String
-  +setAllergies(allergies: String): void
-  +getEmail(): String
-  +setEmail(email: String): void
-  +ViewMedicalHistory()  NOTE: "This method is not exist yet"
-  +ChangePersonalInfo()
-}
-
-class AppointmentRequest {
-
-  NOTE: This is for SECURITY
+package payload{
+  package request{
+    class AppointmentRequest {
   - patientId: long
   - appointmentDate: String
   - appointmentTime: String
@@ -396,7 +128,9 @@ class UpdatePatientRequest {
 
 }
 
-class JwtResponse {
+  }
+  package response{
+    class JwtResponse {
   - token: String
   - type: String
   - id: Long
@@ -440,7 +174,301 @@ class MessageResponse {
 
 }
 
-interface PatientRepository extends JpaRepository{
+  }
+}
+
+package security {
+
+  package jwt {
+
+    class AuthEntryPointJwt implements AuthenticationEntryPoint{
+  - logger:Logger
+  + commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException):void
+}
+
+class AuthTokenFilter extends OncePerRequestFilter {
+  - jwtUtils:JWTUtils
+  - userDetailsService:UserDetailsServiceImpl 
+  - logger: Logger
+  # doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain):void
+  - parseJwt(HttpServletRequest request):String
+
+}
+
+class JwtUtils {
+  - jwtExpirationMs: int 
+  - logger: Logger
+  - jwtSecret: String
+  + generateJwtToken(Authentication authentication):String
+  - key(): Key
+  + getUserNameFromJwtToken(String token): String
+  + validateJwtToken(String authToken):boolean
+}
+
+  }
+  
+package services {
+
+  class UserDetailsImpl {
+  - serialVersionUID: long
+  - id:Long
+  - email:String
+  - password:String
+  - authorities:Collection<? extends GrantedAuthority>
+  + <constructor>(
+    id: Long
+    username:String
+    email:String
+    password:String
+  )
+  + build(user:User): UserDetailsImpl
+  + getAuthorities(): Collection<? extends GrantedAuthority>
+  + getId(): Long
+  + getEmail(): String
+  + getPassword(): String
+  + getUsername(): String
+  + isAccountNonExpired(): boolean
+  + isAccountNonLocked(): boolean
+  + isCredentialsNonExpired(): boolean
+  + isEnabled(): boolean
+}
+
+  class UserDetailsServiceImpl{
+  - userRepository: UserRepository
+  + <constructor>(
+    userRepository:UserRepository
+  )
+
+  + loadUserByUsername(String username) throws UsernameNotFoundException: UserDetails
+
+}
+
+}
+
+  
+
+  class WebSecurityConfig {
+  - userDetailsService:UserDetailsServiceImpl
+  - unauthorizedHandler:AuthEntryPointJwt
+  + authenticationJwtTokenFilter():AuthTokenFilter
+  + authenticationProvider():DaoAuthenticationProvider
+  + authenticationManager(authConfig:AuthenticationConfiguration ) throws Exception:AuthenticationManager
+  + passwordEncoder():PasswordEncoder
+  + filterChain(HttpSecurity http) throws Exception:SecurityFilterChain
+}
+
+
+
+
+
+}
+
+package controllers {
+
+  class AuthController{
+  - authenticationManager:AuthenticationManager 
+  - userRepository: UserRepository
+  - roleRepository: RoleRepository 
+  - encoder: PasswordEncoder 
+  + authenticateUser(LoginRequest loginRequest): ResponseEntity<?>
+  + registerUser(SignupRequest signUpRequest): ResponseEntity<?> 
+}
+
+  class PatientController {
+  - patientService: PatienService
+  + constructor PatientController(PatientService PatientService)
+  + addPatient(Patient patient): Optional<Patient>
+  + getPatientById(String id): Optional<Patient>
+  + getAllPatients(): List<Patient>
+  + searchPatient(String query): List<Patient>
+  + updatePatient(Patient patient): ResponseEntity<?>
+  + deletePatient(Long patientId): ResponseEntity<?>
+  + getPatientByName(String name): Optional<Patient>
+}
+
+  class DoctorController {
+  - doctorService: DoctorService
+  + constructor DoctorController(DoctorService DoctorService)
+  + addDoctor(Doctor doctor): Optional<Doctor>
+  + getDoctorById(String id): Optional<Doctor>
+  + getAllDoctors(): List<Doctor>
+  + searchDoctor(String query): List<Doctor>
+  + updateDoctor(Doctor doctor): ResponseEntity<?>
+  + deleteDoctor(Long doctorId): ResponseEntity<?>
+  + getDoctorByName(String name): Optional<Doctor>
+}
+
+  class AppointmentController {
+  - appointmentService: AppointmentService
+  - doctorService: DoctorService
+  - patientService: PatientService
+  + AppointmentController(appointmentService: AppointmentService, 
+  doctorService: DoctorService, 
+  patientService: PatientService) - constructor
+  + getAllFreeAppointments(appointmentDate: String): List<Appointment>
+  + cancelAllAppointments(appointmentDate: String): List<Appointment>
+  + cancelAppointment(appointmentDate: String)
+  + getAppointment(appointmentDate: String)
+}
+
+  class PharmacistController{
+  - pharmacistService: PharmacistService
+  + <constructor>(pharmacistService: PharmacistService)
+  + getPharmacistById(Long id): Optional<Pharmacist>
+  + getAllPharmacists(): List<Pharmacist>
+  + searchPharmacist(String query): List<Pharmacist>
+  + updatePharmacist(pharmacist: Pharmacist): ResponseEntity<?>
+  + deletePharmacist(Long pharmacistId): ResponseEntity<?>
+  + getPharmacistByName(String name): Optional<Pharmacist>
+}
+
+  class LaboratoryTechnicianController{
+  - laboratoryTechnicianService:LaboratoryTechnician
+  + <constructor>(laboratoryTechnicianService: LaboratoryTechnicianService)
+  + getLaboratoryTechnicianById(Long id): Optional<LaboratoryTechnician>
+  + getAllLaboratoryTechnicians(): List<LaboratoryTechnician>
+  + searchLaboratoryTechnician(String query): List<LaboratoryTechnician>
+  + updateLaboratoryTechnician(Doctor doctor): ResponseEntity<?>
+  + deleteLaboratoryTechnician(Long doctorId): ResponseEntity<?>
+  + getLaboratoryTechnicianByName(String name): Optional<LaboratoryTechnician>
+
+}
+
+  class DiagnosController{
+  - diagnosService: DiagnosService
+  + <constructor>(diagnosService: DiagnosService)
+  + getDiagnos(diagnosisCode:String): Optional<Diagnos>
+  + getAllDiagnoses(): List<Diagnos>
+}
+
+  class AnalysController{
+  - analysService: AnalysService
+  + <constructor>(analysService: AnalysService)
+  + getAnalysByCode(code:String): Optional<Analys>
+  + getAnalysByType(type:String): Optional<Analys>
+  + getAllAnalyses(): List<Analys>
+
+}
+
+  class MedicationController{
+  - medicationService: MedicationService
+  + <constructor>(medicationService: MedicationService)
+  + getMedicationByName(name:String): Optional<Medication>
+  + getAllMedications(): List<Medication>
+}
+
+}
+
+package services {
+  class PatientService {
+  - patientRepository:PatientRepository
+  + <constructor>(
+    patientRepository:PatientRepository
+  )
+
+  + getPatientById(Long id): Optional<Patient>
+  + getAllPatients(): List<Patient>
+  + searchPatient(String query): List<Patient>
+  + updatePatient(Patient patient): ResponseEntity<?>
+  + deletePatient(Long patientId): ResponseEntity<?>
+  + getPatientByName(String name): Optional<Patient>
+
+}
+
+
+  class DoctorService {
+- doctorRepository:DoctorRepository
+  + <constructor>(
+    doctorRepository:DoctorRepository
+  )
+
+  + getDoctorById(Long id): Optional<Doctor>
+  + getAllDoctors(): List<Doctor>
+  + searchDoctor(String query): List<Doctor>
+  + updateDoctor(Doctor doctor): ResponseEntity<?>
+  + deleteDoctor(Long doctorId): ResponseEntity<?>
+  + getDoctorByName(String name): Optional<Doctor>
+}
+
+  class AppointmentService  {
+  - appointmentRepository:AppointmentRepository
+  + <constructor>(
+    appointmentRepository:AppointmentRepository
+  )
+  + getAllFreeAppointments(appointmentDate: String): List<Appointment>
+  + cancelAllAppointments(appointmentDate: String): List<Appointment>
+  + cancelAppointment(appointmentDate: String)
+}
+
+  class PharmacistService  {
+  - pharmacistRepository:PharmacistRepository
+  + <constructor>(
+    pharmacistRepository:PharmacistRepository
+  )
+
+  + getPharmacistById(Long id): Optional<Pharmacist>
+  + getAllPharmacists(): List<Pharmacist>
+  + searchPharmacist(String query): List<Pharmacist>
+  + updatePharmacist(Doctor doctor): ResponseEntity<?>
+  + deletePharmacist(Long doctorId): ResponseEntity<?>
+  + getPharmacistByName(String name): Optional<Pharmacist>
+}
+
+  class LaboratoryTechnicianService  {
+
+  - laboratoryTechnicianRepository:LaboratoryTechnicianRepository
+  + <constructor>(
+    laboratoryTechnicianRepository:LaboratoryTechnicianRepository
+  )
+  + getLaboratoryTechnicianById(Long id): Optional<LaboratoryTechnician>
+  + getAllLaboratoryTechnicians(): List<LaboratoryTechnician>
+  + searchLaboratoryTechnician(String query): List<LaboratoryTechnician>
+  + updateLaboratoryTechnician(Doctor doctor): ResponseEntity<?>
+  + deleteLaboratoryTechnician(Long doctorId): ResponseEntity<?>
+  + getLaboratoryTechnicianByName(String name): Optional<LaboratoryTechnician>
+}
+
+  class DiagnosService  {
+  - diagnosRepository:DiagnosRepository
+  + <constructor>(
+    diagnosRepository:DiagnosRepository
+  )
+  + getDiagnos(diagnosisCode:String): Optional<Diagnos>
+  + getAllDiagnoses(): List<Diagnos>
+}
+
+  class AnalysService  {
+  - analysRepository:AnalysRepository
+  + <constructor>(
+    analysRepository:AnalysRepository
+  )
+  + getAnalysByCode(code:String): Optional<Analys>
+  + getAnalysByType(type:String): Optional<Analys>
+  + getAllAnalyses(): List<Analys>
+}
+
+  class AnalysResultService  {
+  - analysResultRepository: AnalysResultRepository
+  + AnalysResultService(AnalysResultRepository analysResultRepository)
+  + getAnalysResultByCode(code: String): Optional<AnalysResult>
+  + getAnalysResultByType(type: String): Optional<AnalysResult>
+  + getAllAnalysResults(): List<AnalysResult>
+  + getAnalysResultsByStatus(status: AnalysStatus): List<AnalysResult>
+}
+
+  class MedicationService  {
+  - medicationRepository:MedicationRepository
+  + <constructor>(
+    medicationRepository:MedicationRepository
+  )
+  + getMedicationByName(name:String): Optional<Medication>
+  + getAllMedications(): List<Medication>
+}
+
+}
+
+package repositories {
+  interface PatientRepository extends JpaRepository{
   getPatientById(Long id): Optional<Patient>
   getAllPatients(): List<Patient>
   searchPatient(String query): List<Patient>
@@ -450,7 +478,7 @@ interface PatientRepository extends JpaRepository{
 
 }
 
-interface DoctorRepository extends JpaRepository {
+  interface DoctorRepository extends JpaRepository {
   getDoctorById(Long id): Optional<Doctor>
   getAllDoctors(): List<Doctor>
   searchDoctor(String query): List<Doctor>
@@ -459,13 +487,13 @@ interface DoctorRepository extends JpaRepository {
   getDoctorByName(String name): Optional<Doctor>
 }
 
-interface AppointmentRepository extends JpaRepository {
+  interface AppointmentRepository extends JpaRepository {
   getAllFreeAppointments(appointmentDate: String): List<Appointment>
   cancelAllAppointments(appointmentDate: String): List<Appointment>
   cancelAppointment(appointmentDate: String)
 }
 
-interface PharmacistRepository extends JpaRepository {
+  interface PharmacistRepository extends JpaRepository {
   getPharmacistById(Long id): Optional<Pharmacist>
   getAllPharmacists(): List<Pharmacist>
   searchPharmacist(String query): List<Pharmacist>
@@ -474,7 +502,7 @@ interface PharmacistRepository extends JpaRepository {
   getPharmacistByName(String name): Optional<Pharmacist>
 }
 
-interface LaboratoryTechnicianRepository extends JpaRepository {
+  interface LaboratoryTechnicianRepository extends JpaRepository {
   getLaboratoryTechnicianById(Long id): Optional<LaboratoryTechnician>
   getAllLaboratoryTechnicians(): List<LaboratoryTechnician>
   searchLaboratoryTechnician(String query): List<LaboratoryTechnician>
@@ -483,41 +511,166 @@ interface LaboratoryTechnicianRepository extends JpaRepository {
   getLaboratoryTechnicianByName(String name): Optional<LaboratoryTechnician>
 }
 
-interface DiagnosRepository extends JpaRepository {
+  interface DiagnosRepository extends JpaRepository {
   getDiagnos(diagnosisCode:String): Optional<Diagnos>
   getAllDiagnoses(): List<Diagnos>
 }
 
-interface AnalysRepository extends JpaRepository {
+  interface AnalysRepository extends JpaRepository {
   getAnalysByCode(code:String): Optional<Analys>
   getAnalysByType(type:String): Optional<Analys>
   getAllAnalyses(): List<Analys>
 }
 
-interface AnalysResultRepository extends JpaRepository {
+  interface AnalysResultRepository extends JpaRepository {
   getAnalysResultByCode(code:String): Optional<AnalysResult>
   getAnalysResultByType(type:String): Optional<AnalysResult>
   getAllAnalysResults(): List<AnalysResult>
   getAnalysResultsByStatus(status:AnalysStatus): List<AnalysStatus>
 }
 
-interface MedicationRepository extends JpaRepository {
+  interface MedicationRepository extends JpaRepository {
   getMedicationByName(name:String): Optional<Medication>
   getAllMedications(): List<Medication>
 }
+}
 
+package Enums {
+  enum AppointmentStatus {
+  BUSY 
+  FREE
+  ABSENT
+}
 
+enum EnumRole {
+  ROLE_DOCTOR
+  ROLE_PATIENT
+  ROLE_RECEPTIONIST
+  ROLE_PHARMACIST
+  ROLE_LABORATORYTECHNICIAN
+}
+
+enum AnalysStatus {
+  POSITIVE
+  NEGATIVE
+}
+
+}
+
+package models {
+
+  class Role {
+  - id: Integer
+  - name: EnumRole
+  + Role(name:EnumRole, id: Integer)
+  + getId(): Integer
+  + setId(Integer id): void
+  + getName(): String
+  + setName(EnumRole name): void
+}
+
+  class Receptionist{
+ - name: String
+  - familyName: String
+  - id: String
+  - username: String
+  - password: String
+  + Receptionist(String id, String name, String familyName, String username, String password)
+  + getName(): String
+  + getFamilyName(): String
+  + getId(): String
+  + getPassword(): String
+}
+
+  class Doctor{
+  - name:String
+  - familyName:String
+  - id:long
+  - username: String
+  - password:String
+  - specialization: String
+  - contactNumber: String
+  + <constructor>(
+    id: long,
+    name: String,
+    familyName: String,
+    username: String,
+    password: String,
+    specialization: String,
+    contactNumber: String
+  )
+  + getName(): String
+  + getFamilyName(): String
+  + getId(): long
+  + getPassword(): String
+  + getSpecialization(): String
+  + getContactNumber(): String
+  + setContactNumber(): void
+  + conductMedicalExamination()
+}
+
+  class MedicalExamination
+  class MedicalHistoryService
+
+  class Patient {
+  - name: String
+  - familyName: String
+  - id: long
+  - insurance: String
+  - addres: String
+  - username: String
+  - password: String
+  - gender: String
+  - age: String
+  - contraindications: String
+  - allergies: String
+  - contactNumber: String
+  - email: String
+
+  + <constructor>(
+    id: long,
+    name: String,
+    familyName: String,
+    insurance: String,
+    addres: String,
+    username: String,
+    password: String,
+    gender: String,
+    age: String,
+    contraindications: String,
+    allergies: String,
+    contactNumber: String,
+    email: String
+  )
+
+  +getName(): String
+  +getFamilyName(): String
+  +getId(): String
+  +getPassword(): String
+  +getContactNumber(): String
+  +setContactNumber(contactNumber: String): void
+  +getInsurance(): String
+  +setInsurance(insurance: String): void
+  +getAddres(): String
+  +setAddres(addres: String): void
+  +getGender(): String
+  +setGender(gender: String): void
+  +getAge(): String
+  +setAge(age: String): void
+  +getContraindications(): String
+  +setContraindications(contraindications: String): void
+  +getAllergies(): String
+  +setAllergies(allergies: String): void
+  +getEmail(): String
+  +setEmail(email: String): void
+  +ViewMedicalHistory()  NOTE: "This method is not exist yet"
+  +ChangePersonalInfo()
+}
 
 class Pharmacist {
   - id: long
   - username: String
   - password: String
-
-  + <constructor>(
-    id: long,
-    username: String,
-    password: String
-  )
   + getId(): long
   + setId(id: long): void
   + getUsername(): String
@@ -531,12 +684,6 @@ class LaboratoryTechnician {
   - id: long
   - username: String
   - password: String
-
-  + <constructor>(
-    id: long,
-    username: String,
-    password: String
-  )
   + getId(): long
   + setId(id: long): void
   + getUsername(): String
@@ -563,11 +710,6 @@ class Laboratory {
 class Diagnos {
   - description: String
   - diagnosisCode: String
-
-  + <constructor>(
-    description: String,
-    diagnosisCode: String
-  )
   + getDescription(): String
   + setDescription(description: String): void
   + getDiagnosisCode(): String
@@ -577,11 +719,6 @@ class Diagnos {
 class Analys {
   - analysisType: String
   - analysisCode: String
-
-  + <constructor>(
-    analysisType: String,
-    analysisCode: String
-  )
   + getAnalysisType(): String
   + setAnalysisType(analysisType: String): void
   + getAnalysisCode(): String
@@ -589,66 +726,51 @@ class Analys {
 }
 
 class AnalysResult {
-  - analysisType: String
-  - analysisCode: String
+  - analysType: String
+  - analysCode: String
   - analysResult: String
   - analysStatus: AnalysStatus
-
-  + <constructor>(
-    analysisType: String,
-    analysisCode: String,
-    analysResult: String,
-    analysStatus: AnalysStatus
-  )
-  + getAnalysisType(): String
-  + setAnalysisType(analysisType: String): void
-  + getAnalysisCode(): String
-  + setAnalysisCode(analysisCode: String): void
+  + getAnalysType(): String
+  + setAnalysType(analysisType: String): void
+  + getAnalysCode(): String
+  + setAnalysCode(analysisCode: String): void
   + getAnalysResult(): String
   + setAnalysResult(analysResult: String): void
   + getAnalysStatus(): AnalysStatus
   + setAnalysStatus(analysStatus: AnalysStatus): void
 }
 
-class Medication {
+
+
+  class Medication {
   - medicationDosage: float
   - medicationName: String
-
-  + <constructor>(
-    medicationDosage: float,
-    medicationName: String
-  )
   + getMedicationDosage(): float
   + setMedicationDosage(medicationDosage: float): void
   + getMedicationName(): String
   + setMedicationName(medicationName: String): void
 }
 
-class Appointment {
+  class Appointment {
   - appointmentDate: String
   - appointmentTime: String
   - patientName: String
-
-  + <constructor>(
-    appointmentDate: String,
-    appointmentTime: String,
-    patientName: String
-  )
+  + Appointment(String appointmentDate, String appointmentTime, String patientName)
   + getAppointmentDate(): String
-  + setAppointmentDate(appointmentDate: String): void
+  + setAppointmentDate(String appointmentDate): void
   + getAppointmentTime(): String
-  + setAppointmentTime(appointmentTime: String): void
+  + setAppointmentTime(String appointmentTime): void
   + getPatientName(): String
-  + setPatientName(patientName: String): void
-  + CreateAppointment(): void
+  + setPatientName(String patientName): void
+  + createAppointment(): void  
 }
 
-
-class MedicalRecord {
+  class MedicalRecord {
   - recordDate: String
   - recordDescription: String
 
   + <constructor>(
+  
     recordDate: String,
     recordDescription: String
   )
@@ -658,11 +780,22 @@ class MedicalRecord {
   + setRecordDescription(recordDescription: String): void
 }
 
-Receptionist "1" -- "0..*" Appointment : Creates
-Doctor "1" -- "0..*" Appointment : Attends
+}
+
+Doctor "1" -- "..*" Appointment : Attends
 Patient "1" -- "0..*" Appointment : Requests
-Pharmacist "1" -- "0..*" Medication : Dispenses
+Receptionist "1" -- "0..*" Appointment : Creates
+
 LaboratoryTechnician "1" -- "0..*" Analysis : Performs
-Doctor "1" -- "0..*" Diagnoses : Provides
 Doctor "1" -- "0..*" MedicalRecord : Creates
+Patient "1" -- "0..*" MedicalRecord : Has
+Doctor "1" -- "0..*" MedicalExamination : Conducts
+Laboratory "1" -- "0..*" Analys : Performs
+Doctor "1" -- "0..*" Medication : Prescribes
+
+Doctor "1" -- "0..*" Diagnos : Provides
+
+Pharmacist "1" -- "0..*" Medication : Dispenses
+LaboratoryTechnician "1" -- "0..*" AnalysResult : Generates
+
 @enduml

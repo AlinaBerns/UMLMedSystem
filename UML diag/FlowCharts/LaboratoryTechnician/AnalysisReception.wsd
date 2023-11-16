@@ -1,0 +1,22 @@
+@startuml Analysis Reception
+:Start;
+:Receive Sample for Analysis;
+:Verify Sample Information;
+if (Sample Information Verified?) then (yes)
+  :Log Sample Details;
+  :Prepare Sample for Analysis;
+  :Conduct Laboratory Test;
+  :Generate Analysis Results;
+  :Verify Analysis Results;
+  if (Results Verified?) then (yes)
+    :Update Patient Records;
+    :Send Results to Doctor;
+    :Display Results Confirmation;
+  else (no)
+    :Display Unverified Results Message;
+  endif
+else (no)
+  :Display Sample Information Verification Failure Message;
+endif
+:End;
+@enduml

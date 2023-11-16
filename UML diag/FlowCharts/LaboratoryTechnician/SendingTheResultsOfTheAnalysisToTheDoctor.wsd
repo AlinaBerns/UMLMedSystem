@@ -1,0 +1,14 @@
+@startuml Sending The Results Of The Analysis To The Doctor
+:Start;
+:Verify Analysis Results;
+if (Results Verified?) then (yes)
+  :Retrieve Doctor's Information;
+  :Compose Message with Results;
+  :Send Message to Doctor;
+  :Update Notification Record;
+  :Display Sending Confirmation;
+else (no)
+  :Display Unverified Results Message;
+endif
+:End;
+@enduml

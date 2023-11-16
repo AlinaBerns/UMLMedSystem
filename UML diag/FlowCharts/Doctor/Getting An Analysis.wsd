@@ -1,0 +1,14 @@
+@startuml Getting An Analysis
+:Start;
+:Receive Analysis Results;
+:Verify Results Availability;
+if (Results Available?) then (yes)
+  :Review Analysis Results;
+  :Consider Results in Diagnosis;
+  :Update Treatment Plan if Necessary;
+else (no)
+  :Request Results from Laboratory;
+  :Display: "Wait for Results Availability";
+endif
+:End;
+@enduml

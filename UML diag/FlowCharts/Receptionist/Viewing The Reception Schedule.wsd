@@ -1,0 +1,11 @@
+@startuml Viewing The Reception Schedule
+:Start;
+:Receptionist Requests Schedule;
+:Retrieve Reception Schedule;
+if (Schedule Retrieved Successfully?) then (yes)
+  :Display Reception Schedule;
+else (no)
+  :Display Schedule Retrieval Error Message;
+endif
+:End;
+@enduml

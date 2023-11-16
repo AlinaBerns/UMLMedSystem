@@ -1,0 +1,23 @@
+@startuml Conduct Lab Test
+:Start;
+:Receive Sample for Lab Test;
+:Verify Sample Information;
+if (Sample Information Verified?) then (yes)
+  :Log Sample Details;
+  :Prepare Sample for Lab Test;
+  :Conduct Laboratory Test;
+  :Generate Test Results;
+  :Verify Test Results;
+  if (Results Verified?) then (yes)
+    :Record Test Results;
+    :Update Patient Records;
+    :Notify Doctor of Test Completion;
+    :Display Test Results Confirmation;
+  else (no)
+    :Display Unverified Results Message;
+  endif
+else (no)
+  :Display Sample Information Verification Failure Message;
+endif
+:End;
+@enduml

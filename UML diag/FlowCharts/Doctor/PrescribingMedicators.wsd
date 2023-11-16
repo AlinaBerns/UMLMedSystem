@@ -1,0 +1,17 @@
+@startuml Prescribing Medication
+:Start;
+:Confirm Patient's Diagnosis;
+if (Diagnosis Confirmed?) then (yes)
+  :Review Patient's Medical History;
+  :Display: "Check for Allergies and Medication History";
+  :Prescribe Medications;
+  :Specify Dosage and Instructions;
+  :Provide Prescription to Patient;
+else (no)
+  :Request Further Medical Information;
+  :Conduct Additional Examinations if Needed;
+  :Refine Diagnosis;
+  :End Process;
+endif
+:End;
+@enduml

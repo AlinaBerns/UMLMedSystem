@@ -1,0 +1,12 @@
+@startuml View Medical History
+:Start;
+:Login to Patient Account;
+if (Login Successful?) then (yes)
+  :Navigate to Medical History Section;
+  :View Medical History;
+  :Display Medical Records;
+else (no)
+  :Display Login Failure Message;
+endif
+:End;
+@enduml
