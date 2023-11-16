@@ -1,0 +1,55 @@
+@startuml UseCase
+!define ACTOR actor
+!define UC usecase
+
+left to right direction
+skinparam packageRotation 90
+
+rectangle "Clinic System" {
+    ACTOR Receptionist
+    ACTOR Doctor
+    ACTOR Patient
+    ACTOR Pharmacist
+    ACTOR LaboratoryTechnician
+
+    Receptionist --> (Login)
+    Receptionist --> (Create Patient Appointment)
+    Receptionist --> (Cancellation Of Patient Appointment)
+    Receptionist --> (Viewing The Reception Schedule)
+    Receptionist --> (Accepting Payment For The Service)
+    Receptionist --> (Registration Patient)
+
+    Doctor --> (Login)
+    Doctor --> (Create Patient Appointment)
+    Doctor --> (Patient Appointment)
+    Doctor --> (Viewing The Patient Card)
+    Doctor --> (Diagnosis)
+    Doctor --> (Prescribing Medications)
+    Doctor --> (Issuing a Referral For Analysis)
+    Doctor --> (Analysis Reception)
+    Doctor --> (Getting An Analysis)
+
+    Patient --> (Login)
+    Patient --> (Make Appointment)
+    Patient --> (View Medical History)
+    Patient --> (Change Personal Info)
+
+    Pharmacist --> (Login)
+    Pharmacist --> (Dispense Medication)
+
+    LaboratoryTechnician --> (Login)
+    LaboratoryTechnician --> (Analysis Reception)
+    LaboratoryTechnician --> (Conduct Lab Test)
+    (Conduct Lab Test) --> LabTest
+    LaboratoryTechnician --> (Sending The Results Of The Analysis To The Doctor)
+    
+    (Create Patient Appointment) --> (Viewing The Reception Schedule)
+    (Create Patient Appointment) --> (Make Appointment)
+    (Patient Appointment) --> (Viewing The Patient Card)
+    (Patient Appointment) --> (Diagnosis)
+    (Prescribing Medications) --> (Dispense Medication)
+    (Issuing a Referral For Analysis) --> (Analysis Reception)
+    (Analysis Reception) --> (Conduct Lab Test)
+    (Conduct Lab Test) --> (Sending The Results Of The Analysis To The Doctor)
+}
+@enduml

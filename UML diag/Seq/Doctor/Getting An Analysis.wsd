@@ -1,0 +1,36 @@
+@startuml Reviewing Analysis Results Sequence Diagram
+
+actor Doctor
+participant "MedicalExamination" as MedicalExamination
+participant "LaboratoryTechnician" as LabTechnician
+database "AnalysResultRepository" as ResultRepository
+
+Doctor -> MedicalExamination: Conducts Medical Examination
+MedicalExamination -> LabTechnician: Request Analysis
+LabTechnician -> ResultRepository: Get AnalysResult
+ResultRepository --> LabTechnician: AnalysResult
+LabTechnician --> MedicalExamination: Analysis Results
+MedicalExamination --> Doctor: Analysis Results
+
+activate Doctor
+activate MedicalExamination
+activate LabTechnician
+activate ResultRepository
+
+alt Results Available
+  Doctor -> Doctor: Review Analysis Results
+  Doctor -> Doctor: Consider Results in Diagnosis
+  Doctor -> Doctor: Update Treatment Plan if Necessary
+else Results Not Available
+  Doctor -> LabTechnician: Request Results from Laboratory
+  LabTechnician -> LabTechnician: Perform Analysis
+  LabTechnician -> LabTechnician: Generate AnalysResult
+  LabTechnician -> ResultRepository: Save AnalysResult
+end
+
+deactivate Doctor
+deactivate MedicalExamination
+deactivate LabTechnician
+deactivate ResultRepository
+
+@enduml

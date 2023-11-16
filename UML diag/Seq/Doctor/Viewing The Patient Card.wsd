@@ -1,0 +1,15 @@
+@startuml Viewing The Patient Card
+:Start;
+:Search for Patient's Records;
+if (Patient Records Found?) then (yes)
+  :Access Patient's Medical History;
+  :View Patient's Demographics;
+  :Review Medical Notes and History;
+  :Check Previous Diagnoses and Treatments;
+  :Display: "Note Allergies and Medication History";
+  :End Viewing Patient Card;
+else (no)
+  :Display No Patient Records Found Message;
+endif
+:End;
+@enduml

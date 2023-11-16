@@ -1,0 +1,16 @@
+@startuml Accepting Payment For The Service
+:Start;
+:Enter Patient Information;
+:Calculate Service Cost;
+:Display Total Amount;
+:Enter Payment Details;
+if (Payment Successful?) then (yes)
+  :Generate Receipt;
+  :Update Payment Records;
+  :Complete Transaction;
+  :Thank You Message;
+else (no)
+  :Show Payment Error Message;
+endif
+:End;
+@enduml

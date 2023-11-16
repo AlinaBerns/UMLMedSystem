@@ -1,0 +1,45 @@
+@startuml Diagnosis
+participant Patient
+participant Doctor
+participant LaboratoryTechnician
+participant Pharmacy
+database MedicalRecord
+database AnalysResult
+
+Patient -> Doctor: Request Medical Examination
+activate Doctor
+
+Doctor -> Patient: Conducts Medical Examination
+activate Patient
+
+Doctor -> Doctor: Review Symptoms
+Doctor -> LaboratoryTechnician: Examine Test Results
+activate LaboratoryTechnician
+
+alt Clear Diagnosis?
+  LaboratoryTechnician -> Doctor: Test Results
+else No Clear Diagnosis
+  LaboratoryTechnician -> Doctor: Request Additional Tests
+  activate Patient
+  Patient -> LaboratoryTechnician: Additional Tests
+  deactivate Patient
+  LaboratoryTechnician -> Doctor: Further Test Results
+  Doctor -> Doctor: Review Further Information
+  Doctor -> Doctor: Consult with Specialists if Needed
+  Doctor -> Patient: Refine Diagnosis
+end
+
+Doctor -> MedicalRecord: Create Medical Record
+Doctor -> Pharmacy: Prescribe Medication
+activate Pharmacy
+
+Pharmacy -> Patient: Dispense Medication
+deactivate Pharmacy
+
+Doctor -> AnalysResult: Generate Analys Result
+deactivate Doctor
+activate AnalysResult
+AnalysResult -> Doctor: Analys Result
+deactivate AnalysResult
+
+@enduml
